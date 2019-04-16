@@ -169,23 +169,24 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[3]
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
-set_global_assignment -name SYSTEMVERILOG_FILE RTL/MSS/SinTabel.sv
+set_global_assignment -name BDF_FILE RTL/KEYBOARD/KBDINTF.bdf
+set_global_assignment -name SYSTEMVERILOG_FILE RTL/MSS/SinTable.sv
 set_global_assignment -name TCL_SCRIPT_FILE pin.tcl
 set_global_assignment -name BDF_FILE "bubble-trouble-fpga.bdf"
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA_Controller.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/objects_mux.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/Seg7/SEG7.SV
-set_global_assignment -name BDF_FILE TOP_KDB_DEMO.bdf
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/KEYBOARD/lpf.sv
-set_global_assignment -name SYSTEMVERILOG_FILE keyToggle_decoderIn.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/KEYBOARD/keyPad_decoder.sv
-set_global_assignment -name BDF_FILE RTL/KEYBOARD/KDBINTF.bdf
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/KEYBOARD/byterec.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/KEYBOARD/bitrec.sv
-set_global_assignment -name BDF_FILE TOP_MSS_DEMO.bdf
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/MSS/ToneDecoder.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/MSS/prescaler.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/MSS/data_conversion.sv
 set_global_assignment -name QXP_FILE RTL/MSS/audio_codec_controller.qxp
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/MSS/addr_counter.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/random.sv
+set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/VGA_Controller.sv
+set_global_assignment -name SYSTEMVERILOG_FILE RTL/KEYBOARD/keyToggle_decoderIn.sv
+set_global_assignment -name BDF_FILE RTL/MSS/TOP_MSS.bdf
+set_global_assignment -name BDF_FILE RTL/KEYBOARD/TOP_KBD.bdf
