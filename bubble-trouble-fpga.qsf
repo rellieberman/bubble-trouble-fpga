@@ -170,7 +170,9 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[1]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[3]
 set_global_assignment -name BDF_FILE "bubble-trouble-fpga.bdf"
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/back_ground_draw.sv
+set_global_assignment -name SYSTEMVERILOG_FILE RTL/BMP/charBitMap.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/KEYBOARD/number.sv
+set_global_assignment -name SYSTEMVERILOG_FILE RTL/BMP/ballBitMap.sv
 set_global_assignment -name BDF_FILE RTL/KEYBOARD/KBDINTF.bdf
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/MSS/SinTable.sv
 set_global_assignment -name TCL_SCRIPT_FILE pin.tcl
@@ -194,4 +196,5 @@ set_global_assignment -name BDF_FILE RTL/KEYBOARD/TOP_KBD.bdf
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/back_ground_draw_blue.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/objects/char_move.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/objects/border_crash.sv
+set_global_assignment -name SYSTEMVERILOG_FILE RTL/objects/square_object.sv
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

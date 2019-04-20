@@ -1,4 +1,4 @@
-module charBitMap
+module ballBitMap
     (
         input	logic	clk,
         input	logic	resetN,
