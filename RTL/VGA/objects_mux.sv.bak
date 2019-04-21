@@ -7,9 +7,9 @@
 module	objects_mux	(	
 					input		logic	clk,
 					input		logic	resetN,
+					// smiley 
 					input		logic	[7:0] charRGB, // two set of inputs per unit
 					input		logic [7:0] arrowRGB,
-					input		logic [7:0] ballRGB,
 					input		logic	CharDrawingRequest,
 					input		logic BubbleDrawingRequest,
 					input		logic ArrowDrawingRequest,
