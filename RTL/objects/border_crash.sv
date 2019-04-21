@@ -15,8 +15,9 @@ module border_crash
 		
 		output logic charCrashLeft,
 		output logic charCrashRight,
-		output logic arrowCrash,
-		output logic bubbleCrash
+		output logic arrowHitTop,
+		output logic bubbleHitChar,
+		output logic arrowHitBubble
 	);
 	
 	const int	x_FRAME_SIZE	=	639;
@@ -36,6 +37,17 @@ module border_crash
 				charCrashLeft = 1;
 			if (charX == x_FRAME_SIZE)
 				charCrashRight = 1;
+		end
+		
+		if (arrowDrawingRequest) begin
+			if (arrowY = 0)
+				arrowHitTop = 1;
+			if (bubbleDrawingRequest)
+				arrowHitBubble = 1;
+			
+			end
+				
+		
 		end
 
 	end
