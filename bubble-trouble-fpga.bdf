@@ -1266,6 +1266,40 @@ agreement for further details.
 	)
 	(annotation_block (parameter)(rect 944 48 1192 120))
 )
+(symbol
+	(rect -232 96 -200 128)
+	(text "GND" (rect 8 16 30 26)(font "Arial" (font_size 6)))
+	(text "inst4" (rect 3 21 28 34)(font "Intel Clear" )(invisible))
+	(port
+		(pt 16 0)
+		(output)
+		(text "1" (rect 18 0 25 11)(font "Courier New" (bold))(invisible))
+		(text "1" (rect 18 0 25 11)(font "Courier New" (bold))(invisible))
+		(line (pt 16 8)(pt 16 0))
+	)
+	(drawing
+		(line (pt 8 8)(pt 16 16))
+		(line (pt 16 16)(pt 24 8))
+		(line (pt 8 8)(pt 24 8))
+	)
+)
+(symbol
+	(rect 528 560 560 592)
+	(text "GND" (rect 8 16 30 26)(font "Arial" (font_size 6)))
+	(text "inst14" (rect 3 21 36 34)(font "Intel Clear" )(invisible))
+	(port
+		(pt 16 0)
+		(output)
+		(text "1" (rect 18 0 25 11)(font "Courier New" (bold))(invisible))
+		(text "1" (rect 18 0 25 11)(font "Courier New" (bold))(invisible))
+		(line (pt 16 8)(pt 16 0))
+	)
+	(drawing
+		(line (pt 8 8)(pt 16 16))
+		(line (pt 16 16)(pt 24 8))
+		(line (pt 8 8)(pt 24 8))
+	)
+)
 (connector
 	(text "clk" (rect 888 136 903 149)(font "Intel Clear" ))
 	(pt 864 152)
@@ -1736,7 +1770,83 @@ agreement for further details.
 	(pt 376 344)
 	(pt 376 192)
 )
+(connector
+	(pt -160 96)
+	(pt -216 96)
+)
+(connector
+	(pt -160 -40)
+	(pt -160 -24)
+)
+(connector
+	(pt -160 -24)
+	(pt -160 -8)
+)
+(connector
+	(pt -160 -8)
+	(pt -160 8)
+)
+(connector
+	(pt -160 8)
+	(pt -160 24)
+)
+(connector
+	(pt -160 24)
+	(pt -160 40)
+)
+(connector
+	(pt -160 40)
+	(pt -160 56)
+)
+(connector
+	(pt -160 56)
+	(pt -160 72)
+)
+(connector
+	(pt -160 72)
+	(pt -160 96)
+)
+(connector
+	(pt 688 568)
+	(pt 664 568)
+)
+(connector
+	(pt 664 568)
+	(pt 664 552)
+)
+(connector
+	(pt 688 520)
+	(pt 544 520)
+	(bus)
+)
+(connector
+	(pt 544 520)
+	(pt 544 552)
+	(bus)
+)
+(connector
+	(pt 544 552)
+	(pt 544 560)
+	(bus)
+)
+(connector
+	(pt 544 552)
+	(pt 664 552)
+)
+(connector
+	(pt 664 552)
+	(pt 688 552)
+)
 (junction (pt 736 936))
+(junction (pt -160 -24))
+(junction (pt -160 -8))
+(junction (pt -160 8))
+(junction (pt -160 24))
+(junction (pt -160 40))
+(junction (pt -160 56))
+(junction (pt -160 72))
+(junction (pt 664 552))
+(junction (pt 544 552))
 (text "Sound Unit" (rect 960 776 1026 791)(font "Intel Clear" (font_size 8)))
 (text "Output to 7Seg" (rect 880 1056 968 1071)(font "Intel Clear" (font_size 8)))
 (text "clk" (rect -64 288 -49 301)(font "Intel Clear" ))
