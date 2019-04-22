@@ -4,14 +4,10 @@
 module border_crash
 	(
 		input logic charDrawingRequest,
-		input logic	[10:0]	charX, //char draw location
-		input	logic	[10:0]	charY,
+		input logic	[10:0]	pixelX, //char draw location
+		input	logic	[10:0]	pixelY,
 		input logic arrowDrawingRequest,
-		input logic	[10:0]	arrowX, //arrow draw location
-		input	logic	[10:0]	arrowY,
-		input logic bubbleDrawingRequet,
-		input logic	[10:0]	bubbleX, //bubble draw location
-		input	logic	[10:0]	bubbleY,
+		input logic bubbleDrawingRequest,
 		
 		output logic charCrashLeft,
 		output logic charCrashRight,
@@ -28,27 +24,27 @@ module border_crash
 		//defaults 
 		charCrashLeft = 0;
 		charCrashRight = 0;
-		arrowCrash = 0;
-		bubbleCrash = 0;
+		arrowHitTop = 0;
+		bubbleHitChar = 0;
+		arrowHitBubble = 0;
 		
 		if (charDrawingRequest)
 		begin
-			if (charX == 0)
+			if (pixelX == 0)
 				charCrashLeft = 1;
-			if (charX == x_FRAME_SIZE)
+			if (pixelX == x_FRAME_SIZE)
 				charCrashRight = 1;
 		end
 		
 		if (arrowDrawingRequest) begin
-			if (arrowY = 0)
+			if (pixelY == 0)
 				arrowHitTop = 1;
 			if (bubbleDrawingRequest)
 				arrowHitBubble = 1;
 			
-			end
+		end
 				
 		
-		end
 
 	end
 endmodule 

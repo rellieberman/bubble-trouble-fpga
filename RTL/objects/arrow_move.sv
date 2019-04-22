@@ -66,7 +66,7 @@ module arrow_Move
 			
 			end //ArrowShot
 	
-	
+		endcase 
 	end
 	
 	

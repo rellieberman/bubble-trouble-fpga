@@ -36,12 +36,17 @@ module char_move
 	
 	always_comb
 	begin
+	
+		topLeftY = CHAR_HIGHT;
+		topLeftX_tmp = 0;
+		topLeftX = topLeftX;
+
+			
 		if (rightPress && !rightCrash)
 			topLeftX_tmp = topLeftX + 1;
 		else if (leftPress && !leftCrash)
 			topLeftX_tmp = topLeftX - 1;
 	end
 	
-	assign topLeftY = CHAR_HIGHT;
-
+	
 endmodule 
