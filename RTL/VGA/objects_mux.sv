@@ -7,11 +7,12 @@
 module	objects_mux	(	
 					input		logic	clk,
 					input		logic	resetN,
-					// smiley 
-					input		logic	[7:0] smileyRGB, // two set of inputs per unit
-					input		logic [7:0] squareRGB,
-					input		logic	smileyDrawingRequest,
-					input		logic square_request,
+					input		logic	[7:0] charRGB, // two set of inputs per unit
+					input		logic [7:0] arrowRGB,
+					input		logic [7:0] ballRGB,
+					input		logic	CharDrawingRequest,
+					input		logic BubbleDrawingRequest,
+					input		logic ArrowDrawingRequest,
 					// add the box here 
 					
 					// fill your code here inputs for box
@@ -38,11 +39,11 @@ begin
 			tmpRGB	<= 8'b0;
 	end
 	else begin
-		if (smileyDrawingRequest == 1'b1 )   
-			tmpRGB <= smileyRGB;  //first priority 
+		if (CharDrawingRequest)   
+			tmpRGB <= charRGB;  //first priority 
 		
-		else if (square_request)
-			tmpRGB <= squareRGB; //second priority
+		else if (BubbleDrawingRequest)
+			tmpRGB <= arrowRGB; //second priority
 		
 			else
 			tmpRGB <= backGroundRGB ; // last priority 
