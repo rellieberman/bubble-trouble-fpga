@@ -17,10 +17,10 @@ module char_move
 		output	logic	[10:0]	topLeftY
 	);
 	
-	logic topLeftX_tmp;
+	logic [10:0] topLeftX_tmp ;
 	
 	parameter int INITIAL_X = 320;
-	parameter int INITIAL_Y = CHAR_HIGHT;
+	parameter int INITIAL_Y = 480 - CHAR_HIGHT;
 	
 	always_ff@(posedge clk or negedge resetN)
 	begin
@@ -37,9 +37,8 @@ module char_move
 	always_comb
 	begin
 	
-		topLeftY = CHAR_HIGHT;
-		topLeftX_tmp = 0;
-		topLeftX = topLeftX;
+		topLeftY = INITIAL_Y;
+		topLeftX_tmp = topLeftX;
 
 			
 		if (rightPress && !rightCrash)

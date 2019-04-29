@@ -2,8 +2,9 @@
 // Written By David Bar-On  June 2018 
 
 module SEG7	
- ( input	   logic[3:0]  iDIG, 
-    output  logic [6:0]	oSEG	
+ ( 
+	input    logic [3:0]  iDIG, 
+	output  logic [6:0]	oSEG	
   ) ;
 
 //seven seg decoder ;
