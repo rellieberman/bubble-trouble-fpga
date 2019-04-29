@@ -30,7 +30,7 @@ module border_crash
 		
 		
 		if (arrowDrawingRequest) begin
-			if (pixelY >= 0)
+			if (pixelY == 0)
 				arrowHitTop = 1;
 			if (bubbleDrawingRequest)
 				arrowHitBubble = 1;

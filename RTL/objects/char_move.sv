@@ -22,7 +22,7 @@ module char_move
 	logic [10:0] topLeftX_tmp ;
 	
 	parameter int INITIAL_X = 320;
-	parameter int INITIAL_Y = 480 - CHAR_HIGHT;
+	parameter int INITIAL_Y = 479 - CHAR_HIGHT;
 	
 	always_ff@(posedge clk or negedge resetN)
 	begin
@@ -43,9 +43,9 @@ module char_move
 		
 
 			
-		if (rightPress && topLeftX <= 640 - CHAR_WIDTH)
+		if (rightPress && topLeftX <= 639 - CHAR_WIDTH)
 			topLeftX_tmp = topLeftX + 1;
-		else if (leftPress && topLeftX >= 0)
+		else if (leftPress && topLeftX > 0)
 			topLeftX_tmp = topLeftX - 1;
 		else
 			topLeftX_tmp = topLeftX;

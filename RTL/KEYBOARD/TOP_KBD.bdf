@@ -526,6 +526,58 @@ agreement for further details.
 	(annotation_block (parameter)(rect 1000 568 1224 632))
 )
 (symbol
+	(rect 416 304 640 384)
+	(text "number" (rect 5 0 41 12)(font "Arial" ))
+	(text "left_arrow_number" (rect 8 64 100 81)(font "Intel Clear" ))
+	(port
+		(pt 224 32)
+		(output)
+		(text "number[OUTPUT_SIZE-1..0]" (rect 0 0 140 12)(font "Arial" ))
+		(text "number[OUTPUT_SIZE-1..0]" (rect 84 27 224 39)(font "Arial" ))
+		(line (pt 224 32)(pt 208 32)(line_width 3))
+	)
+	(parameter
+		"OUTPUT_SIZE"
+		"9"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"OUTPUT_VALUE"
+		"16B"
+		""
+		(type "PARAMETER_UNSIGNED_HEX")	)
+	(drawing
+		(rectangle (rect 16 16 208 64))
+	)
+	(annotation_block (parameter)(rect 432 256 634 313))
+)
+(symbol
+	(rect 416 496 640 576)
+	(text "number" (rect 5 0 41 12)(font "Arial" ))
+	(text "right_arrow_number" (rect 8 64 104 81)(font "Intel Clear" ))
+	(port
+		(pt 224 32)
+		(output)
+		(text "number[OUTPUT_SIZE-1..0]" (rect 0 0 140 12)(font "Arial" ))
+		(text "number[OUTPUT_SIZE-1..0]" (rect 84 27 224 39)(font "Arial" ))
+		(line (pt 224 32)(pt 208 32)(line_width 3))
+	)
+	(parameter
+		"OUTPUT_SIZE"
+		"9"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"OUTPUT_VALUE"
+		"174"
+		""
+		(type "PARAMETER_UNSIGNED_HEX")	)
+	(drawing
+		(rectangle (rect 16 16 208 64))
+	)
+	(annotation_block (parameter)(rect 416 448 618 505))
+)
+(symbol
 	(rect 424 728 648 808)
 	(text "number" (rect 5 0 41 12)(font "Arial" ))
 	(text "space_number" (rect 8 64 77 81)(font "Intel Clear" ))
@@ -549,59 +601,7 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 208 64))
 	)
-	(annotation_block (parameter)(rect 424 680 625 725))
-)
-(symbol
-	(rect 416 496 640 576)
-	(text "number" (rect 5 0 41 12)(font "Arial" ))
-	(text "right_arrow_number" (rect 8 64 104 81)(font "Intel Clear" ))
-	(port
-		(pt 224 32)
-		(output)
-		(text "number[OUTPUT_SIZE-1..0]" (rect 0 0 140 12)(font "Arial" ))
-		(text "number[OUTPUT_SIZE-1..0]" (rect 84 27 224 39)(font "Arial" ))
-		(line (pt 224 32)(pt 208 32)(line_width 3))
-	)
-	(parameter
-		"OUTPUT_SIZE"
-		"9"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"OUTPUT_VALUE"
-		"E074"
-		""
-		(type "PARAMETER_UNSIGNED_HEX")	)
-	(drawing
-		(rectangle (rect 16 16 208 64))
-	)
-	(annotation_block (parameter)(rect 416 448 618 505))
-)
-(symbol
-	(rect 416 304 640 384)
-	(text "number" (rect 5 0 41 12)(font "Arial" ))
-	(text "left_arrow_number" (rect 8 64 100 81)(font "Intel Clear" ))
-	(port
-		(pt 224 32)
-		(output)
-		(text "number[OUTPUT_SIZE-1..0]" (rect 0 0 140 12)(font "Arial" ))
-		(text "number[OUTPUT_SIZE-1..0]" (rect 84 27 224 39)(font "Arial" ))
-		(line (pt 224 32)(pt 208 32)(line_width 3))
-	)
-	(parameter
-		"OUTPUT_SIZE"
-		"9"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"OUTPUT_VALUE"
-		"E06B"
-		""
-		(type "PARAMETER_UNSIGNED_HEX")	)
-	(drawing
-		(rectangle (rect 16 16 208 64))
-	)
-	(annotation_block (parameter)(rect 432 256 634 313))
+	(annotation_block (parameter)(rect 424 680 626 737))
 )
 (connector
 	(pt 976 176)
