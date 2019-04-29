@@ -28,16 +28,9 @@ module border_crash
 		bubbleHitChar = 0;
 		arrowHitBubble = 0;
 		
-		if (charDrawingRequest)
-		begin
-			if (pixelX == 0)
-				charCrashLeft = 1;
-			if (pixelX == x_FRAME_SIZE)
-				charCrashRight = 1;
-		end
 		
 		if (arrowDrawingRequest) begin
-			if (pixelY == 0)
+			if (pixelY >= 0)
 				arrowHitTop = 1;
 			if (bubbleDrawingRequest)
 				arrowHitBubble = 1;

@@ -2,7 +2,9 @@
 //character can move on bottom of screen within screen border	
 
 module char_move
-	#(parameter CHAR_HIGHT = 32)
+	#(parameter CHAR_HIGHT = 32,
+		parameter CHAR_WIDTH = 20
+	)
 	(
 		
 		input	logic	clk,
@@ -38,13 +40,15 @@ module char_move
 	begin
 	
 		topLeftY = INITIAL_Y;
-		topLeftX_tmp = topLeftX;
+		
 
 			
-		if (rightPress && !rightCrash)
+		if (rightPress && topLeftX <= 640 - CHAR_WIDTH)
 			topLeftX_tmp = topLeftX + 1;
-		else if (leftPress && !leftCrash)
+		else if (leftPress && topLeftX >= 0)
 			topLeftX_tmp = topLeftX - 1;
+		else
+			topLeftX_tmp = topLeftX;
 	end
 	
 	
