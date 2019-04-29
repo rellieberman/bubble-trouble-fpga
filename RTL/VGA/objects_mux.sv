@@ -42,7 +42,7 @@ begin
 		if (CharDrawingRequest)   
 			tmpRGB <= charRGB;  //first priority 
 		
-		else if (BubbleDrawingRequest)
+		else if (ArrowDrawingRequest)
 			tmpRGB <= arrowRGB; //second priority
 		
 			else
