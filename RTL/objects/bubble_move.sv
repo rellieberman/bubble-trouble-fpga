@@ -1,10 +1,10 @@
 
 module bubble_move
 	(	
-		input		logic			 clk,
-		input		logic			 resetN,
-		input		logic			 startOfFrame,  // short pulse every start of frame 30Hz 
-		input 	logic	[1:0]  size,
+		input		logic		 clk,
+		input		logic		 resetN,
+		input		logic		 startOfFrame,  // short pulse every start of frame 30Hz 
+		input 		logic [2:0]  size_in,
 		input		logic 		 start,
 		input		logic 		 Hit,
 		input		logic 		 direction,
@@ -14,7 +14,8 @@ module bubble_move
 		
 		output	logic	[10:0]	topLeftX,// output the top left corner 
 		output	logic	[10:0]	topLeftY,
-		output	logic 			split
+		output	logic 			split,
+		output  logic	[2:0]	size_out
 	);	
 	
 	parameter int INITIAL_X_SPEED = 30;
@@ -23,57 +24,72 @@ module bubble_move
 	
 	
 	
-	enum logic {noBubble, Bubble} cur_st, nxt_state;
+	enum logic [1:0] {noBubble, Start, Bubble} cur_st, nxt_st;
 	
-	logic int Xspeed, Yspeed;
+	int Xspeed, Yspeed;
 	
-	logic	[10:0]	topLeftX_tmp,// output the top left corner 
-	logic	[10:0]	topLeftY_tmp,
+	logic	[10:0]	topLeftX_tmp;// output the top left corner 
+	logic	[10:0]	topLeftY_tmp;
 	
 	// we want to work in higher resolution
+	const int MULTIPLIER = 64;
 	const int	x_FRAME_SIZE	=	639 * MULTIPLIER;
 	const int	y_FRAME_SIZE	=	479 * MULTIPLIER;
-	const int MULTIPLIER = 64;
+
 	
+	//state machine ff
+	always_ff@(posedge clk or negedge resetN) begin
+		if (!resetN)
+			cur_st <= noBubble;
+		else
+			cur_st <= nxt_st;
+	end
 	
-	//state machine and bubble move flipflop
+	//control bubble move flipflop
 	always_ff@(posedge clk or negedge resetN) begin
 		if (!resetN) begin
-			cur_st <= noBubble;
 			topLeftX_tmp <= -1; //will not display
 			topLeftY_tmp <= -1;
-		end else begin
-		cur_st <= nxt_st;
-		
+		end else if (cur_st == noBubble) begin
+			topLeftX_tmp <= -1; //will not display
+			topLeftY_tmp <= -1;
+		end else if (cur_st == Start) begin
+			topLeftX_tmp <= startTopX * 64;
+			topLeftY_tmp <= startTopY *64;
+		end else begin //cur_st == Bubble
 		//only move char on start of frame
-		if (startOfFrame) begin 
-			topLeftX <= topLeftX + Xspeed;
-			topLeftY <= topLeftY + Yspeed;
-			
+			if (startOfFrame) begin 
+				topLeftX_tmp <= topLeftX_tmp + Xspeed;
+				topLeftY_tmp <= topLeftY_tmp + Yspeed;
+			end
 		end
 	end
 	
 	//calculate x speed
 	always_ff@(posedge clk or negedge resetN) begin
-		if(!resetN || (cur_st == noBubble))
+		if(!resetN)
 			Xspeed	<= INITIAL_X_SPEED;
-	
-	else if (cur_st = Bubble)	begin
+		else if (cur_st == noBubble)
+			Xspeed	<= INITIAL_X_SPEED;
+		else if (cur_st == Start && !direction)
+			Xspeed <= -INITIAL_X_SPEED;
+		else if (cur_st == Bubble) begin
 			
 			if ((topLeftX_tmp <= 0 ) && (Xspeed < 0) ) // hit left border while moving left
-				Xspeed <= -Xspeed ; 
+				Xspeed <= -Xspeed; 
 			
 			if ( (topLeftX_tmp >= x_FRAME_SIZE) && (Xspeed > 0 )) // hit right border while moving left
-				Xspeed <= -Xspeed ; 
+				Xspeed <= -Xspeed; 
+		end
 	end
-end
 
 	//calculate y speed using gravity
-	always_ff@(posedge clk or negedge resetN)
-	begin
-		if(!resetN || (cur_st == noBubble) begin 
+	always_ff@(posedge clk or negedge resetN) begin
+		if(!resetN)
 			Yspeed	<= INITIAL_Y_SPEED; 
-	else if  begin
+		else if (cur_st == noBubble)
+			Yspeed	<= INITIAL_Y_SPEED;
+		else begin
 			if (startOfFrame == 1'b1) 
 				Yspeed <= Yspeed  - Y_ACCEL ; // deAccelerate : slow the speed down every start of frame tick 
 			
@@ -85,7 +101,6 @@ end
 		end 
 
 	end
-end
 	
 	
 	
@@ -94,11 +109,24 @@ end
 		
 		case (cur_st)
 			noBubble: begin
-				if(start) begin
-					
-				end
+				if(start)
+					nxt_st = Start;
+				else
+					nxt_st = cur_st;
 			
 			end //noBubble
+			
+			Start: begin
+				nxt_st = Bubble;
+			
+			end //Start
+			
+			Bubble: begin
+				if (Hit)
+					nxt_st = noBubble;
+				else
+					nxt_st = cur_st;
+			end //Bubble
 		
 		endcase
 	
@@ -107,7 +135,8 @@ end
 	
 	//get a better (64 times) resolution using integer   
 	assign 	topLeftX = topLeftX_tmp / MULTIPLIER ;   // note it must be 2^n 
-	assign 	topLeftY = topLeftY_tmp / MULTIPLIER ;    
+	assign 	topLeftY = topLeftY_tmp / MULTIPLIER ;
+	assign	size_out = size_in;   
 
 	
 	

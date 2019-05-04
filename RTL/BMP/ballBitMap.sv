@@ -5,6 +5,7 @@ module ballBitMap
         input   logic	[10:0] offsetX,// offset from top left  position 
         input   logic	[10:0] offsetY,
         input	logic	InsideRectangle, //input that the pixel is within a bracket 
+        input   logic   [2:0] size,
 
         output	logic	drawingRequest, //output that the pixel should be dispalyed 
         output	logic	[7:0] RGBout  //rgb value from the bitmap 
@@ -60,7 +61,13 @@ module ballBitMap
             end
             else begin
                 if (InsideRectangle)  // inside an external bracket 
-                    RGBout <= object_colors[offsetY][offsetX];	//get RGB from the colors table  
+                    if (size < 0)
+                        RGBout <= object_colors[offsetY << size][offsetX << size];
+                    if (size == 0)
+                        RGBout <= object_colors[offsetY][offsetX];	//get RGB from the colors table  
+                    if (size > 0)
+                        RGBout <= object_colors[offsetY >> size][offsetX >> size];
+                        
                 else 
                     RGBout <= TRANSPARENT_ENCODING ; // force color to transparent so it will not be displayed 
             end 
