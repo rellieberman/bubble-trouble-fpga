@@ -12,17 +12,17 @@ module	adj_size_square_object	(
 					input 	logic	[10:0] pixelY,
 					input 	logic	[10:0] topLeftX, //position on the screen 
 					input 	logic	[10:0] topLeftY,
-					input	logic	[2:0]  size_shift, //set the size in *2 steps (signed integer)
+					input	logic	[2:0]  size, //set the size in *2 steps (signed integer)
 					
 					
 					output 	logic	[10:0] offsetX,// offset inside bracket from top left position 
 					output 	logic	[10:0] offsetY,
 					output	logic	drawingRequest, // indicates pixel inside the bracket
-					output	logic   [2:0]  size_Shift_out,
+					output	logic   [2:0]  size_out,
 					output	logic	[7:0]	 RGBout //optional color output for mux 
 );
-parameter  int OBJECT_WIDTH_X = 32;
-parameter  int OBJECT_HEIGHT_Y = 32;
+parameter  int OBJECT_WIDTH_X = 8;
+parameter  int OBJECT_HEIGHT_Y = 8;
 parameter  logic [7:0] OBJECT_COLOR = 8'h5b ; 
 localparam logic [7:0] TRANSPARENT_ENCODING = 8'hFF ;// bitmap  representation for a transparent pixel 
  
@@ -33,16 +33,10 @@ logic insideBracket ;
 // Calculate object right  & bottom  boundaries
 always_comb begin
 
-	if (size_shift > 0) begin
-		rightX	= (topLeftX + OBJECT_WIDTH_X << size_shift);
-		bottomY	= (topLeftY + OBJECT_HEIGHT_Y << size_shift);
-	end else if (size_shift == 0) begin
-		rightX	= (topLeftX + OBJECT_WIDTH_X);
-		bottomY	= (topLeftY + OBJECT_HEIGHT_Y);
-	end else begin
-		rightX	= (topLeftX + OBJECT_WIDTH_X >> size_shift);
-		bottomY	= (topLeftY + OBJECT_HEIGHT_Y >> size_shift);
-	end
+	
+		rightX	= (topLeftX + (OBJECT_WIDTH_X << size));
+		bottomY	= (topLeftY + (OBJECT_HEIGHT_Y << size));
+
 end
 
 always_ff@(posedge clk or negedge resetN)
@@ -77,5 +71,5 @@ begin
 	end
 end 
 
-assign size_Shift_out = size_shift;
+assign size_out = size;
 endmodule 

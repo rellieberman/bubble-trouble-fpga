@@ -50,14 +50,14 @@ module arrow_Move
 			end //noArrow
 			
 			ArrowShot: begin
-				if (crash) begin
+				if (topLeftY >= 479 || crash) begin // hit top
 					nxt_st = noArrow;
 					nxt_topLeftX = -1;
 					nxt_topLeftY = -1;
 				end else if (startOfFrame) begin
 					nxt_st = cur_st;
 					nxt_topLeftX = topLeftX;
-					nxt_topLeftY = topLeftY - 1;
+					nxt_topLeftY = topLeftY - 10;
 				end else begin
 					nxt_st = cur_st;
 					nxt_topLeftX = topLeftX;

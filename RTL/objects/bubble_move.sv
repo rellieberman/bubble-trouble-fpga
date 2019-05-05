@@ -4,7 +4,7 @@ module bubble_move
 		input		logic		 clk,
 		input		logic		 resetN,
 		input		logic		 startOfFrame,  // short pulse every start of frame 30Hz 
-		input 		logic [2:0]  size_in,
+		input 		logic [2:0]  size,
 		input		logic 		 start,
 		input		logic 		 Hit,
 		input		logic 		 direction,
@@ -18,7 +18,8 @@ module bubble_move
 		output  logic	[2:0]	size_out
 	);	
 	
-	parameter int INITIAL_X_SPEED = 30;
+	parameter int OBJECT_SIZE = 8;
+	parameter int INITIAL_X_SPEED = 70;
 	parameter int INITIAL_Y_SPEED = 0;
 	parameter int Y_ACCEL = -1;
 	
@@ -28,8 +29,8 @@ module bubble_move
 	
 	int Xspeed, Yspeed;
 	
-	logic	[10:0]	topLeftX_tmp;// output the top left corner 
-	logic	[10:0]	topLeftY_tmp;
+	int	topLeftX_tmp;// output the top left corner 
+	int	topLeftY_tmp;
 	
 	// we want to work in higher resolution
 	const int MULTIPLIER = 64;
@@ -48,14 +49,14 @@ module bubble_move
 	//control bubble move flipflop
 	always_ff@(posedge clk or negedge resetN) begin
 		if (!resetN) begin
-			topLeftX_tmp <= -1; //will not display
-			topLeftY_tmp <= -1;
+			topLeftX_tmp <= -MULTIPLIER; //will not display
+			topLeftY_tmp <= -MULTIPLIER;
 		end else if (cur_st == noBubble) begin
-			topLeftX_tmp <= -1; //will not display
-			topLeftY_tmp <= -1;
+			topLeftX_tmp <= -MULTIPLIER; //will not display
+			topLeftY_tmp <= -MULTIPLIER;
 		end else if (cur_st == Start) begin
-			topLeftX_tmp <= startTopX * 64;
-			topLeftY_tmp <= startTopY *64;
+			topLeftX_tmp <= startTopX * MULTIPLIER;
+			topLeftY_tmp <= startTopY * MULTIPLIER;
 		end else begin //cur_st == Bubble
 		//only move char on start of frame
 			if (startOfFrame) begin 
@@ -78,7 +79,7 @@ module bubble_move
 			if ((topLeftX_tmp <= 0 ) && (Xspeed < 0) ) // hit left border while moving left
 				Xspeed <= -Xspeed; 
 			
-			if ( (topLeftX_tmp >= x_FRAME_SIZE) && (Xspeed > 0 )) // hit right border while moving left
+			if ( (topLeftX_tmp + (OBJECT_SIZE << size) * MULTIPLIER >= x_FRAME_SIZE) && (Xspeed > 0 )) // hit right border while moving left
 				Xspeed <= -Xspeed; 
 		end
 	end
@@ -96,7 +97,7 @@ module bubble_move
 			if ((topLeftY_tmp <= 0 ) && (Yspeed < 0 )) // hit top border heading up
 				Yspeed <= -Yspeed ; 
 			
-			if ( ( topLeftY_tmp >= y_FRAME_SIZE) && (Yspeed > 0 )) //hit bottom border heading down 
+			if ( ( topLeftY_tmp + (OBJECT_SIZE << size) * MULTIPLIER >= y_FRAME_SIZE) && (Yspeed > 0 )) //hit bottom border heading down 
 				Yspeed <= -Yspeed ; 
 		end 
 
@@ -106,6 +107,8 @@ module bubble_move
 	
 	//state comb
 	always_comb begin
+	
+
 		
 		case (cur_st)
 			noBubble: begin
@@ -133,10 +136,12 @@ module bubble_move
 	
 	end
 	
+	
+	
 	//get a better (64 times) resolution using integer   
-	assign 	topLeftX = topLeftX_tmp / MULTIPLIER ;   // note it must be 2^n 
-	assign 	topLeftY = topLeftY_tmp / MULTIPLIER ;
-	assign	size_out = size_in;   
+	assign 	topLeftX = topLeftX_tmp / MULTIPLIER;   // note it must be 2^n 
+	assign 	topLeftY = topLeftY_tmp / MULTIPLIER;
+	assign	size_out = size;   
 
 	
 	

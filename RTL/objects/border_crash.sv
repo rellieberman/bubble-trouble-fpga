@@ -9,9 +9,6 @@ module border_crash
 		input logic arrowDrawingRequest,
 		input logic bubbleDrawingRequest,
 		
-		output logic charCrashLeft,
-		output logic charCrashRight,
-		output logic arrowHitTop,
 		output logic bubbleHitChar,
 		output logic arrowHitBubble
 	);
@@ -22,20 +19,24 @@ module border_crash
 	always_comb
 	begin 
 		//defaults 
-		charCrashLeft = 0;
-		charCrashRight = 0;
-		arrowHitTop = 0;
+		
 		bubbleHitChar = 0;
 		arrowHitBubble = 0;
 		
 		
 		if (arrowDrawingRequest) begin
-			if (pixelY == 0)
-				arrowHitTop = 1;
-			if (bubbleDrawingRequest)
+			if (bubbleDrawingRequest) begin
 				arrowHitBubble = 1;
-			
+			end
 		end
+		if (bubbleDrawingRequest) begin
+			if (charDrawingRequest) begin
+				arrowHitBubble = 1;
+				bubbleHitChar = 1;
+			end
+				 
+		end
+		
 				
 		
 
