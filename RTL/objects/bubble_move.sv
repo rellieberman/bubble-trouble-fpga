@@ -109,7 +109,7 @@ module bubble_move
 	always_comb begin
 	
 
-		
+		split = 0;
 		case (cur_st)
 			noBubble: begin
 				if(start)
@@ -125,9 +125,10 @@ module bubble_move
 			end //Start
 			
 			Bubble: begin
-				if (Hit)
+				if (Hit) begin
 					nxt_st = noBubble;
-				else
+					split = 1;
+				end	else
 					nxt_st = cur_st;
 			end //Bubble
 		

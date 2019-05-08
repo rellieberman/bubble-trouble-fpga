@@ -31,7 +31,6 @@ module border_crash
 		end
 		if (bubbleDrawingRequest) begin
 			if (charDrawingRequest) begin
-				arrowHitBubble = 1;
 				bubbleHitChar = 1;
 			end
 				 

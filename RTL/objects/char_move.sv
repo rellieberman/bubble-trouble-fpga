@@ -12,15 +12,14 @@ module char_move
 		input	logic	startOfFrame,  // short pulse every start of frame 30Hz 
 		input logic leftPress,
 		input logic rightPress,
-		input logic rightCrash,
-		input logic leftCrash,
-		input logic onN,
+		input logic bubbleHit,
+		input logic start,
 		
 		output	logic	[10:0]	topLeftX,// output the top left corner 
 		output	logic	[10:0]	topLeftY
 	);
 	
-	enum logic {game, game_over} cur_st, nxt_st;
+	enum logic [1:0] {preGame, game, gameOver} cur_st, nxt_st;
 	
 	logic [10:0] topLeftX_tmp;
 	logic [10:0] topLeftY_tmp;
@@ -33,7 +32,7 @@ module char_move
 	always_ff@(posedge clk or negedge resetN)
 	begin
 		if (!resetN)
-			cur_st <= game;
+			cur_st <= preGame;
 		else
 			cur_st <= nxt_st;
 	end
@@ -47,7 +46,7 @@ module char_move
 			topLeftY <= INITIAL_Y;
 		end
 		else begin 
-			if (startOfFrame || cur_st == game_over)
+			if (startOfFrame || cur_st == gameOver || cur_st == preGame)
 			begin
 				topLeftX <= topLeftX_tmp;
 				topLeftY <= topLeftY_tmp;
@@ -63,17 +62,29 @@ module char_move
 		
 		
 		
-			game_over: begin
+			preGame: begin
 					topLeftY_tmp = INITIAL_Y;
 					topLeftX_tmp = INITIAL_X;
-					nxt_st = game;
+					if (start)
+						nxt_st = game;
+					else
+						nxt_st = cur_st;
 			end	
+			
+			gameOver: begin
+					topLeftY_tmp = -1;
+					topLeftX_tmp = -1;
+					if (start)
+						nxt_st = preGame;
+					else
+						nxt_st = cur_st;
+			end
 		
 		
 			game : begin
 				
-				if (onN) begin
-					nxt_st = game_over;
+				if (bubbleHit) begin
+					nxt_st = gameOver;
 					topLeftY_tmp = INITIAL_Y;
 					topLeftX_tmp = INITIAL_X;
 				end else begin
