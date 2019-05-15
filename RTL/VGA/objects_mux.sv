@@ -11,10 +11,12 @@ module	objects_mux	(
 					input		logic [7:0] arrowRGB,
 					input		logic [7:0] bubbleRGB,
 					input		logic [7:0] lifeRGB,
+					input		logic [7:0] messageRGB,
 					input		logic	CharDrawingRequest,
 					input		logic BubbleDrawingRequest,
 					input		logic ArrowDrawingRequest,
 					input		logic lifeDrawingRequest,
+					input		logic messageDrawingRequest,
 					// add the box here 
 						
 					// fill your code here inputs for box
@@ -51,6 +53,8 @@ begin
 			tmpRGB <= bubbleRGB;
 		else if (lifeDrawingRequest)
 			tmpRGB <= lifeRGB;
+		else if (messageDrawingRequest)
+			tmpRGB <= messageRGB;
 		
 		else
 			tmpRGB <= backGroundRGB ; // last priority 

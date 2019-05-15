@@ -8,7 +8,9 @@ module game_control
     
     output logic bubbleStart,
 	 output logic charStart,
-	 output logic [3:0] digit
+	 output logic [3:0] digit,
+	 output logic displayMessage,
+	 output logic [1:0] message
     
 );
     enum logic [2:0] {preGame, game, ev_life, ret_game, win, lose} cur_st, nxt_st;
@@ -26,6 +28,8 @@ module game_control
     end
 
     always_comb begin
+			displayMessage = 0;
+			message = 2'b00;
         case(cur_st)
             preGame: begin
                 bubbleStart = 1;
@@ -81,6 +85,9 @@ module game_control
 					 charStart = 0;
                 nxt_st = cur_st;
 					 digit_tmp = digit;
+					 
+					 displayMessage = 1;
+					 message = 2'b01;
             
             end //win
             
@@ -89,6 +96,9 @@ module game_control
 					 charStart = 0;
                 nxt_st = cur_st;
 					 digit_tmp = digit;
+					 
+					 displayMessage = 1;
+					 message = 2'b10;
             
             end //lose
             
