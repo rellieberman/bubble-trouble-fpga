@@ -87,6 +87,13 @@ agreement for further details.
 		(text "RGBout[7..0]" (rect 150 43 203 55)(font "Arial" ))
 		(line (pt 224 48)(pt 208 48)(line_width 3))
 	)
+	(port
+		(pt 224 64)
+		(output)
+		(text "win" (rect 0 0 11 12)(font "Arial" ))
+		(text "win" (rect 192 59 203 71)(font "Arial" ))
+		(line (pt 224 64)(pt 208 64)(line_width 1))
+	)
 	(parameter
 		"INITIAL_X"
 		"00011001000"

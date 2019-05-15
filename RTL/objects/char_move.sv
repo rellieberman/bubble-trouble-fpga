@@ -32,7 +32,7 @@ module char_move
 	always_ff@(posedge clk or negedge resetN)
 	begin
 		if (!resetN)
-			cur_st <= preGame;
+			cur_st <= gameOver;
 		else
 			cur_st <= nxt_st;
 	end

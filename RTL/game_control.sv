@@ -4,6 +4,8 @@ module game_control
     input logic resetN,
     input logic charHit,
 	 input logic counter,
+	 input logic player_won,
+	 input logic space_press,
     
     
     output logic bubbleStart,
@@ -28,17 +30,29 @@ module game_control
     end
 
     always_comb begin
-			displayMessage = 0;
-			message = 2'b00;
+
         case(cur_st)
             preGame: begin
                 bubbleStart = 1;
-					 charStart = 1;
-                nxt_st = game;
+					 charStart = 0;
 					 digit_tmp = 4'b0011;
+					 
+					 displayMessage = 1;
+					 message = 2'b00;
+					 
+					 if (space_press)
+						nxt_st = game;
+					 else
+						nxt_st = cur_st;
+					 
             end //preGame
 				
 				ret_game : begin
+				
+					displayMessage = 0;
+					message = 2'b00;
+					
+					
 					if (counter) begin
 						bubbleStart = 0;
 						charStart = 1;
@@ -54,11 +68,18 @@ module game_control
 				end //ret_game
             
             game: begin
+				
+				  	 displayMessage = 0;
+					 message = 2'b00;
+				
                 charStart = 1;
 					 bubbleStart = 0;
                 if (charHit) begin
                     nxt_st = ev_life;
 						  digit_tmp = digit - 1;
+					 end else if (player_won) begin
+						 nxt_st = win;
+						 digit_tmp = digit;
                 end else begin
                     nxt_st = cur_st;
 						  digit_tmp = digit;
@@ -67,6 +88,10 @@ module game_control
             end //game
 				
 				ev_life : begin
+				
+					displayMessage = 0;
+					message = 2'b00;
+			
 					bubbleStart = 0;
 					charStart = 0;
 					digit_tmp = digit;
@@ -107,6 +132,8 @@ module game_control
 					 charStart = 0;
                 nxt_st = cur_st;
 					 digit_tmp = digit;
+					 displayMessage = 0;
+					 message = 2'b00;
             end
         
         endcase

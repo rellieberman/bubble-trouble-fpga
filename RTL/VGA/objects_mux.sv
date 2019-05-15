@@ -44,17 +44,18 @@ begin
 	end
 	else begin
 		if (CharDrawingRequest)   
-			tmpRGB <= charRGB;  //first priority 
+			tmpRGB <= charRGB;  //first priority
 		
 		else if (ArrowDrawingRequest)
 			tmpRGB <= arrowRGB; //second priority
+		else if (messageDrawingRequest)
+			tmpRGB <= messageRGB;
 			
 		else if (BubbleDrawingRequest)
 			tmpRGB <= bubbleRGB;
 		else if (lifeDrawingRequest)
 			tmpRGB <= lifeRGB;
-		else if (messageDrawingRequest)
-			tmpRGB <= messageRGB;
+
 		
 		else
 			tmpRGB <= backGroundRGB ; // last priority 

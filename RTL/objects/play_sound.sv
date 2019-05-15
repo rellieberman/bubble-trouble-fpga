@@ -7,7 +7,7 @@ module play_sound
 	input logic charHit,
 	input logic bubbleHit,
 	
-	output play,
+	output logic play,
 	output logic [3:0] tone
 
 );

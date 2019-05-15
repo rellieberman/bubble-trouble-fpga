@@ -14,13 +14,17 @@ module bubble_array
         input 	logic	[10:0] pixelY,
         
         output logic drawingRequest,
-        output logic [7:0] RGBout
+        output logic [7:0] RGBout,
+		  output logic win
 );
     logic [2:0] starts;
     logic [7:0] hits;
     logic [7:0] drawingRequests;
     logic [7:0] splits;
     logic [10:0] [7:0] RGBouts;
+	 
+	 int bubbles_hit;
+	 int nxt_bubble;
     
     logic [7:0] [10:0] topLeftXs;
     logic [7:0] [10:0] topLeftYs;
@@ -28,6 +32,65 @@ module bubble_array
     parameter [10:0] INITIAL_X = 200;
     parameter [10:0] INITIAL_Y = 50;
     parameter [2:0] SIZE = 3'd3;
+	 
+	 enum logic {hit, nohit} cur_st, nxt_st;
+	 
+	 
+	 always_ff@(posedge clk or negedge resetN) begin
+		if (!resetN) begin
+			bubbles_hit <= 8;
+			cur_st <= nohit;
+		end else begin
+			cur_st <= nxt_st;
+			bubbles_hit <= nxt_bubble;
+		end
+	 
+	 end
+	 
+	 
+	 always_comb begin
+		
+		case (cur_st)
+		
+			hit : begin
+				if (!arrowHit) begin
+					nxt_st = nohit;
+					nxt_bubble = bubbles_hit;
+				end else begin
+					nxt_st = cur_st;
+					nxt_bubble = bubbles_hit;
+				end
+			
+			end
+			
+			
+			nohit : begin
+				if (arrowHit) begin
+					nxt_st = hit;
+					nxt_bubble = bubbles_hit - 1;
+				end else begin
+					nxt_st = cur_st;
+					nxt_bubble = bubbles_hit;
+				end
+			
+			end
+			
+			default begin
+				   nxt_st = cur_st;
+					nxt_bubble = bubbles_hit;
+			
+			end
+		
+		
+		
+		
+		endcase
+	 
+	 
+	 
+	 end
+	 
+	 assign win = (bubbles_hit == 0) ? 1'b1 : 1'b0;
 
     //connect all 8 bubble instances
     
