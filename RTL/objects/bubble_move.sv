@@ -19,9 +19,9 @@ module bubble_move
 	);	
 	
 	parameter int OBJECT_SIZE = 8;
-	parameter int INITIAL_X_SPEED = 70;
+	parameter int INITIAL_X_SPEED = 115;
 	parameter int INITIAL_Y_SPEED = 0;
-	parameter int Y_ACCEL = -1;
+	parameter int Y_ACCEL = -2;
 	
 	
 	
