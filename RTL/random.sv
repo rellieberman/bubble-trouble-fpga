@@ -1,8 +1,8 @@
 module random 	
   #(
-	parameter SIZE_BITS = 8,
+	parameter SIZE_BITS = 11,
 	parameter MIN_VAL = 0,  //set the min and max values 
-	parameter MAX_VAL = 479
+	parameter MAX_VAL = 448
 	)
  ( 
 	input	logic  clk,

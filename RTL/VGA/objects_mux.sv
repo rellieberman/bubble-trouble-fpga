@@ -17,11 +17,13 @@ module	objects_mux	(
 					input		logic ArrowDrawingRequest,
 					input		logic lifeDrawingRequest,
 					input		logic messageDrawingRequest,
-					// add the box here 
-						
-					// fill your code here inputs for box
-										
-					// background 
+					input		logic secondCharReq,
+					input		logic secondArrowReq,
+					input		logic [7:0] secondCharRGB,
+					input		logic [7:0] secondArrowRGB,
+					input		logic hartReq,
+					input		logic [7:0] hartRGB,
+
 					input		logic	[7:0] backGroundRGB, 
 
 					output	logic	[7:0] redOut, // full 24 bits color output
@@ -44,10 +46,15 @@ begin
 	end
 	else begin
 		if (CharDrawingRequest)   
-			tmpRGB <= charRGB;  //first priority
-		
+			tmpRGB <= charRGB;
+		else if (secondCharReq)
+			tmpRGB <= secondCharRGB;
+		else if (hartReq)
+			tmpRGB <= hartRGB;
 		else if (ArrowDrawingRequest)
-			tmpRGB <= arrowRGB; //second priority
+			tmpRGB <= arrowRGB;
+		else if (secondArrowReq)
+			tmpRGB <= secondArrowRGB;
 		else if (messageDrawingRequest)
 			tmpRGB <= messageRGB;
 			

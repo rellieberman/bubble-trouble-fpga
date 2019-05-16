@@ -6,16 +6,18 @@ module game_control
 	 input logic counter,
 	 input logic player_won,
 	 input logic space_press,
+	 input logic gotLife,
     
     
     output logic bubbleStart,
 	 output logic charStart,
 	 output logic [3:0] digit,
 	 output logic displayMessage,
-	 output logic [1:0] message
+	 output logic [1:0] message,
+	 output logic gameover
     
 );
-    enum logic [2:0] {preGame, game, ev_life, ret_game, win, lose} cur_st, nxt_st;
+    enum logic [2:0] {preGame, game, ev_life, ret_game, getLife, win, lose} cur_st, nxt_st;
     logic [3:0] digit_tmp;
     
     
@@ -33,6 +35,7 @@ module game_control
 
         case(cur_st)
             preGame: begin
+					 gameover = 0;
                 bubbleStart = 1;
 					 charStart = 0;
 					 digit_tmp = 4'b0011;
@@ -48,7 +51,7 @@ module game_control
             end //preGame
 				
 				ret_game : begin
-				
+					gameover = 0;
 					displayMessage = 0;
 					message = 2'b00;
 					
@@ -68,7 +71,7 @@ module game_control
 				end //ret_game
             
             game: begin
-				
+					 gameover = 0;
 				  	 displayMessage = 0;
 					 message = 2'b00;
 				
@@ -80,6 +83,9 @@ module game_control
 					 end else if (player_won) begin
 						 nxt_st = win;
 						 digit_tmp = digit;
+					 end else if (gotLife) begin
+						 nxt_st = getLife;
+						 digit_tmp = digit;
                 end else begin
                     nxt_st = cur_st;
 						  digit_tmp = digit;
@@ -88,7 +94,7 @@ module game_control
             end //game
 				
 				ev_life : begin
-				
+					gameover = 0;
 					displayMessage = 0;
 					message = 2'b00;
 			
@@ -102,10 +108,28 @@ module game_control
 					else
 						nxt_st = cur_st;
 				
-				
 				end //ev_life
+				
+				getLife : begin
+					 gameover = 0;
+				  	 displayMessage = 0;
+					 message = 2'b00;
+				
+                charStart = 1;
+					 bubbleStart = 0;
+					 
+					 if (counter) begin
+						nxt_st = game;
+						digit_tmp = digit + 1;
+					end else begin
+						nxt_st = cur_st;
+						digit_tmp = digit;
+					end
+				
+				end //getLife
             
             win: begin
+					 gameover = 0;
                 bubbleStart = 0;
 					 charStart = 0;
                 nxt_st = cur_st;
@@ -117,6 +141,7 @@ module game_control
             end //win
             
             lose: begin
+					 gameover = 1;
                 bubbleStart = 0;
 					 charStart = 0;
                 nxt_st = cur_st;
@@ -128,6 +153,7 @@ module game_control
             end //lose
             
             default begin
+					 gameover = 0;
                 bubbleStart = 0;
 					 charStart = 0;
                 nxt_st = cur_st;
